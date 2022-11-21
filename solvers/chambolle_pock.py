@@ -15,9 +15,8 @@ class Solver(BaseSolver):
         'pip:git+https://github.com/Badr-MOUFAD/skglm.git@pdcd-algo'
     ]
 
-    def set_objective(self, X, y, lmbd, fit_intercept):
+    def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd
-        self.fit_intercept = fit_intercept
 
         self.penalty = L1(lmbd)
         self.datafit = SqrtQuadratic()

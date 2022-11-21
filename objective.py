@@ -17,15 +17,15 @@ class Objective(BaseObjective):
 
     def set_data(self, X, y):
         self.X, self.y = X, y
-        self.alpha = self.reg * Objective._compute_alpha_max(X, y)
+        self.lmbd = self.reg * Objective._compute_alpha_max(X, y)
 
     def compute(self, beta):
         datafit_val = norm(self.y - self.X @ beta)
-        penalty_val = self.alpha * norm(beta, ord=1)
+        penalty_val = self.lmbd * norm(beta, ord=1)
         return datafit_val + penalty_val
 
     def to_dict(self):
-        return dict(X=self.X, y=self.y, alpha=self.alpha)
+        return dict(X=self.X, y=self.y, lmbd=self.lmbd)
 
     @staticmethod
     def _compute_alpha_max(X, y):

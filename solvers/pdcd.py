@@ -22,9 +22,8 @@ class Solver(BaseSolver):
     def __init__(self, with_ws):
         self.with_ws = with_ws
 
-    def set_objective(self, X, y, lmbd, fit_intercept):
+    def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd
-        self.fit_intercept = fit_intercept
 
         solver_class = PDCD_WS if self.with_ws else PDCD
 

@@ -15,9 +15,8 @@ class Solver(BaseSolver):
         'pip:skglm'
     ]
 
-    def set_objective(self, X, y, lmbd, fit_intercept):
+    def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd
-        self.fit_intercept = fit_intercept
         n_samples = self.X.shape[0]
 
         warnings.filterwarnings('ignore', category=ConvergenceWarning)
