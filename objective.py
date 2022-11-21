@@ -4,35 +4,29 @@ from benchopt import BaseObjective, safe_import_context
 # Useful for autocompletion and install commands
 with safe_import_context() as import_ctx:
     import numpy as np
+    from numpy.linalg import norm
 
 
 class Objective(BaseObjective):
-    name = "Ordinary Least Squares"
+    name = "Square root Lasso"
 
     # All parameters 'p' defined here are available as 'self.p'
     parameters = {
-        'fit_intercept': [False],
+        'reg': [1e-1, 1e-2, 1e-3],
     }
 
-    def get_one_solution(self):
-        # Return one solution. This should be compatible with 'self.compute'.
-        return np.zeros(self.X.shape[1])
-
     def set_data(self, X, y):
-        # The keyword arguments of this function are the keys of the `data`
-        # dict in the `get_data` function of the dataset.
-        # They are customizable.
         self.X, self.y = X, y
+        self.alpha = self.reg * Objective._compute_alpha_max(X, y)
 
     def compute(self, beta):
-        # The arguments of this function are the outputs of the
-        # `get_result` method of the solver.
-        # They are customizable.
-        diff = self.y - self.X.dot(beta)
-        return .5 * diff.dot(diff)
+        datafit_val = norm(self.y - self.X @ beta)
+        penalty_val = self.alpha * norm(beta, ord=1)
+        return datafit_val + penalty_val
 
     def to_dict(self):
-        # The output of this function are the keyword arguments
-        # for the `set_objective` method of the solver.
-        # They are customizable.
-        return dict(X=self.X, y=self.y, fit_intercept=self.fit_intercept)
+        return dict(X=self.X, y=self.y, alpha=self.alpha)
+
+    @staticmethod
+    def _compute_alpha_max(X, y):
+        return norm(X.T @ y, ord=np.inf) / norm(y)
