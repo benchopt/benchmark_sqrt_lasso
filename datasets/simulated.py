@@ -1,4 +1,4 @@
-from benchopt import BaseDataset, safe_import_context
+from benchopt import BaseDataset
 from benchopt.datasets import make_correlated_data
 
 
@@ -8,8 +8,8 @@ class Dataset(BaseDataset):
 
     parameters = {
         'n_samples, n_features': [
-            (1000, 500),
-            (500, 1000)
+            (500, 4000),
+            (1000, 800),
         ]
     }
 
