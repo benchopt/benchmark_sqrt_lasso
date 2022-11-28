@@ -15,12 +15,24 @@ class Solver(BaseSolver):
         'pip:git+https://github.com/Badr-MOUFAD/skglm.git@pdcd-algo'
     ]
 
+    parameters = {
+        'with_dual_init': [True, False]
+    }
+
+    def __init__(self, with_dual_init):
+        self.with_dual_init = with_dual_init
+        self.dual_init = None
+
     def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd
 
         self.penalty = L1(lmbd)
         self.datafit = SqrtQuadratic()
-        self.solver = ChambollePock(tol=1e-9)
+
+        if self.with_dual_init:
+            self.dual_init = self.y / np.linalg.norm(y)
+
+        self.solver = ChambollePock(tol=1e-9, dual_init=self.dual_init)
 
         # Cache Numba compilation
         self.run(5)

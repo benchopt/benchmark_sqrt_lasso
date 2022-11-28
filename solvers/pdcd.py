@@ -16,11 +16,14 @@ class Solver(BaseSolver):
     ]
 
     parameters = {
-        'with_ws': [True, False]
+        'with_ws': [True, False],
+        'with_dual_init': [True, False]
     }
 
-    def __init__(self, with_ws):
+    def __init__(self, with_ws, with_dual_init):
+        self.with_dual_init = with_dual_init
         self.with_ws = with_ws
+        self.dual_init = None
 
     def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd
@@ -29,7 +32,11 @@ class Solver(BaseSolver):
 
         self.penalty = L1(lmbd)
         self.datafit = SqrtQuadratic()
-        self.solver = solver_class(tol=1e-9)
+
+        if self.with_dual_init:
+            self.dual_init = self.y / np.linalg.norm(y)
+
+        self.solver = solver_class(tol=1e-9, dual_init=self.dual_init)
 
         # Cache Numba compilation
         self.run(5)
