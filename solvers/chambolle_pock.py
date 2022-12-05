@@ -30,7 +30,6 @@ class Solver(BaseSolver):
         if n_iter == 0:
             self.coef = np.zeros(self.X.shape[1])
         else:
-            self.solver.max_iter = n_iter
             coef = chambolle_pock(self.X, self.y, self.lmbd, n_iter)
 
             self.coef = coef.flatten()

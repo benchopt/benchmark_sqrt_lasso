@@ -34,7 +34,6 @@ class Solver(BaseSolver):
         if n_iter == 0:
             self.coef = np.zeros(self.X.shape[1])
         else:
-            self.solver.max_iter = n_iter
             coef = vu_condat_cd(self.X, self.y, self.lmbd,
                                 n_iter, self.random_cd)
 
@@ -50,13 +49,12 @@ def vu_condat_cd(X, y, alpha=1., max_iter=1000, random_cd=False):
     arranged_features = np.arange(n_features)
 
     # init steps
-    # step sizes in fercoq package are:
-    #   - sigma = max(1 / np.sqrt(n_features * norm(X, axis=0, ord=2)**2))
-    #   - tau = 0.9 / (norm(A, axis=0, ord=2)**2 * sigma * n_features)
-    dual_step = 1 / np.linalg.norm(X, ord=2)
-    primal_steps = np.zeros(n_features)
-    for j in arranged_features:
-        primal_steps[j] = 1 / np.linalg.norm(X[:, j])
+    # refer to cd_solver.cd_solver_.pyx
+    # in https://github.com/Badr-MOUFAD/Fercoq-Bianchi-solver
+    # for expression
+    squared_norm_cols_X = (X ** 2).sum(axis=0)
+    dual_step = max(1 / np.sqrt(n_features * squared_norm_cols_X))
+    primal_steps = 0.9 / (dual_step * n_features * squared_norm_cols_X)
 
     # primal vars
     w = np.zeros(n_features)
