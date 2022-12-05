@@ -7,6 +7,5 @@ solver:
   - vu-condat-cd
   - Chambolle-Pock
 dataset:
-  - leukemia
   - MEG
   - Simulated
