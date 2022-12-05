@@ -10,9 +10,19 @@ with safe_import_context() as import_ctx:
 class Solver(BaseSolver):
     name = "vu-condat-cd"
 
-    requirements = [
-        'pip:numba'
+    requirements = ['numba']
+
+    references = [
+        'Olivier Fercoq and Pascal Bianchi, '
+        '"A Coordinate-Descent Primal-Dual Algorithm with Large Step Size '
+        'and Possibly Nonseparable Functions", SIAM Journal on Optimization, 2020, '
+        'https://epubs.siam.org/doi/10.1137/18M1168480,'
+        'code: https://github.com/Badr-MOUFAD/Fercoq-Bianchi-solver'
     ]
+
+    parameters = {
+        'random_cd': [False, True]
+    }
 
     def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd
@@ -25,7 +35,8 @@ class Solver(BaseSolver):
             self.coef = np.zeros(self.X.shape[1])
         else:
             self.solver.max_iter = n_iter
-            coef = vu_condat_cd(self.X, self.y, self.lmbd, n_iter)
+            coef = vu_condat_cd(self.X, self.y, self.lmbd,
+                                n_iter, self.random_cd)
 
             self.coef = coef.flatten()
 
