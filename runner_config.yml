@@ -2,10 +2,10 @@ max_runs: 1000
 n_jobs: 10
 n_repetitions: 3
 timeout: 60
-solver_names:
+solver:
   - PDCD-WS
   - vu-condat-cd
   - Chambolle-Pock
-dataset_names:
+dataset:
   - MEG
   - Simulated
