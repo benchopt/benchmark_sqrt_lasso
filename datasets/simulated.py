@@ -8,7 +8,7 @@ class Dataset(BaseDataset):
 
     parameters = {
         'n_samples, n_features': [
-            (500, 2000),
+            (800, 2000),
             (1000, 800),
         ]
     }
@@ -19,7 +19,7 @@ class Dataset(BaseDataset):
         self.random_state = random_state
 
     def get_data(self):
-        X, y, _ = make_correlated_data(self.n_samples, self.n_features, rho=0.3,
+        X, y, _ = make_correlated_data(self.n_samples, self.n_features, rho=0.6,
                                        random_state=self.random_state)
 
         return dict(X=X, y=y)

@@ -54,7 +54,9 @@ def vu_condat_cd(X, y, alpha=1., max_iter=1000, random_cd=False):
     #   - sigma = max(1 / np.sqrt(n_features * norm(X, axis=0, ord=2)**2))
     #   - tau = 0.9 / (norm(A, axis=0, ord=2)**2 * sigma * n_features)
     dual_step = 1 / np.linalg.norm(X, ord=2)
-    primal_steps = 1 / np.linalg.norm(X, axis=0, ord=2)
+    primal_steps = np.zeros(n_features)
+    for j in arranged_features:
+        primal_steps[j] = 1 / np.linalg.norm(X[:, j])
 
     # primal vars
     w = np.zeros(n_features)

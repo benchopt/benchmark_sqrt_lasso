@@ -12,7 +12,7 @@ class Objective(BaseObjective):
     name = "Square root Lasso"
 
     parameters = {
-        'reg': [1e-1, 1e-2, 1e-3],
+        'reg': [0.5, 0.1, 0.05, 0.01],
     }
 
     def set_data(self, X, y):
@@ -20,7 +20,10 @@ class Objective(BaseObjective):
         self.lmbd = self.reg * Objective._compute_alpha_max(X, y)
 
     def compute(self, beta):
-        return Objective._compute_p_obj(self.X, self.y, beta, self.lmbd)
+        return {
+            'value': Objective._compute_p_obj(self.X, self.y, beta, self.lmbd),
+            'support size': (beta != 0).sum()
+        }
 
     def to_dict(self):
         return dict(X=self.X, y=self.y, lmbd=self.lmbd)

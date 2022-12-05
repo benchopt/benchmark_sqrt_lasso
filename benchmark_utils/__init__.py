@@ -19,4 +19,4 @@ def prox_conjugate_L2(z, step, y):
 def prox_L1(x, step, alpha):
     # arg min_w ||w||_1 + 1/(2*step) ||w - z||^2
     # entry-wise soft threshold
-    return np.sign(x) * np.maximum(0., np.abs(x) - step*alpha)
+    return np.sign(x) * np.maximum(0., np.abs(x) - step * alpha)
