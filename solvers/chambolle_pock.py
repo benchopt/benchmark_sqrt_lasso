@@ -10,7 +10,7 @@ with safe_import_context() as import_ctx:
 class Solver(BaseSolver):
     name = "Chambolle-Pock"
 
-    requirements = ['numba']
+    requirements = ['pip:numba']
 
     references = [
         'Antonin Chambolle, Thomas Pock'

@@ -22,7 +22,7 @@ class Solver(BaseSolver):
         self.penalty = L1(lmbd)
         self.datafit = SqrtQuadratic()
 
-        self.solver = PDCD_WS(dual_init=y/np.linalg.norm(y))
+        self.solver = PDCD_WS()
 
         # Cache Numba compilation
         self.run(5)

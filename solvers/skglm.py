@@ -11,9 +11,7 @@ with safe_import_context() as import_ctx:
 class Solver(BaseSolver):
     name = "skglm"
 
-    requirements = [
-        'pip:skglm'
-    ]
+    requirements = ['pip:skglm']
 
     def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd

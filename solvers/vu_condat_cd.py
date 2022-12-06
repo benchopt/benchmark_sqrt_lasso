@@ -10,13 +10,13 @@ with safe_import_context() as import_ctx:
 class Solver(BaseSolver):
     name = "vu-condat-cd"
 
-    requirements = ['numba']
+    requirements = ['pip:numba']
 
     references = [
         'Olivier Fercoq and Pascal Bianchi, '
         '"A Coordinate-Descent Primal-Dual Algorithm with Large Step Size '
-        'and Possibly Nonseparable Functions", SIAM Journal on Optimization, 2020, '
-        'https://epubs.siam.org/doi/10.1137/18M1168480,'
+        'and Possibly Nonseparable Functions", SIAM Journal on Optimization, '
+        '2020, https://epubs.siam.org/doi/10.1137/18M1168480,'
         'code: https://github.com/Badr-MOUFAD/Fercoq-Bianchi-solver'
     ]
 
@@ -77,7 +77,8 @@ def vu_condat_cd(X, y, alpha=1., max_iter=1000, random_cd=False):
             # update primal
             old_w_j = w[j]
 
-            w[j] = prox_L1(old_w_j - primal_steps[j] * X[:, j] @ (2 * z_bar - z),
+            pseudo_grad = X[:, j] @ (2 * z_bar - z)
+            w[j] = prox_L1(old_w_j - primal_steps[j] * pseudo_grad,
                            primal_steps[j], alpha)
 
             # keep Xw synchro with X @ w
