@@ -13,7 +13,7 @@ $$\\min_{w} \\lVert y - Xw \\rVert_2 + \\lambda \\lVert w \\rVert_1 $$
 where $n$ (or ``n_samples``) stands for the number of samples, $p$ (or ``n_features``) stands for the number of features and
 
 
-$$ \\lambda > 0 \\quad X \\in \\mathbb{R}^{n \\times p} \\ , \\quad w \\in \\mathbb{R}^p$$
+$$ \\lambda > 0, \\quad X \\in \\mathbb{R}^{n \\times p} \\ , \\quad w \\in \\mathbb{R}^p$$
 
 
 Install
