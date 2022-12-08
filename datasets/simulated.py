@@ -19,7 +19,8 @@ class Dataset(BaseDataset):
         self.random_state = random_state
 
     def get_data(self):
-        X, y, _ = make_correlated_data(self.n_samples, self.n_features, rho=0.6,
-                                       random_state=self.random_state)
+        X, y, _ = make_correlated_data(
+            self.n_samples, self.n_features, rho=0.6,
+            random_state=self.random_state)
 
         return dict(X=X, y=y)
