@@ -10,7 +10,8 @@ with safe_import_context() as import_ctx:
 class Solver(BaseSolver):
     name = "Chambolle-Pock"
 
-    requirements = ['pip:numba']
+    install_cmd = 'conda'
+    requirements = ['numba']
 
     references = [
         'Antonin Chambolle, Thomas Pock'

@@ -10,7 +10,8 @@ with safe_import_context() as import_ctx:
 class Solver(BaseSolver):
     name = "vu-condat-cd"
 
-    requirements = ['pip:numba']
+    install_cmd = 'conda'
+    requirements = ['numba']
 
     references = [
         'Olivier Fercoq and Pascal Bianchi, '

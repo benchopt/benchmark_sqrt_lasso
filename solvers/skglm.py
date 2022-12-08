@@ -11,6 +11,7 @@ with safe_import_context() as import_ctx:
 class Solver(BaseSolver):
     name = "skglm"
 
+    install_cmd = 'conda'
     requirements = ['pip:skglm']
 
     def set_objective(self, X, y, lmbd):
