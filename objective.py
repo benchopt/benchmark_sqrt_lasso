@@ -38,6 +38,4 @@ class Objective(BaseObjective):
 
     def get_one_solution(self):
         n_features = self.X.shape[1]
-        if self.fit_intercept:
-            n_features += 1
         return np.zeros(n_features)
