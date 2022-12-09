@@ -6,6 +6,7 @@ with safe_import_context() as import_ctx:
 
 
 class Objective(BaseObjective):
+    min_benchopt_version = "1.3"
     name = "Square root Lasso"
 
     parameters = {
@@ -22,7 +23,7 @@ class Objective(BaseObjective):
             'support size': (beta != 0).sum()
         }
 
-    def to_dict(self):
+    def get_objective(self):
         return dict(X=self.X, y=self.y, lmbd=self.lmbd)
 
     @staticmethod
