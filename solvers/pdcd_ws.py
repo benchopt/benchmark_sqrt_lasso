@@ -14,7 +14,7 @@ class Solver(BaseSolver):
 
     install_cmd = 'conda'
     requirements = [
-        'pip:git+https://github.com/Badr-MOUFAD/skglm.git@pmain'
+        'pip:git+https://github.com/Badr-MOUFAD/skglm.git@main'
     ]
 
     def set_objective(self, X, y, lmbd):
