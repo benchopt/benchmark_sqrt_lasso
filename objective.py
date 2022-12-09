@@ -15,6 +15,9 @@ class Objective(BaseObjective):
         'reg': [0.5, 0.1, 0.05, 0.01],
     }
 
+    install_cmd = 'conda'
+    requirements = ['numba']
+
     def set_data(self, X, y):
         self.X, self.y = X, y
         self.lmbd = self.reg * Objective._compute_alpha_max(X, y)
