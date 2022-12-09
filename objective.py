@@ -35,3 +35,9 @@ class Objective(BaseObjective):
         datafit_val = norm(y - X @ beta)
         penalty_val = lmbd * norm(beta, ord=1)
         return datafit_val + penalty_val
+
+    def get_one_solution(self):
+        n_features = self.X.shape[1]
+        if self.fit_intercept:
+            n_features += 1
+        return np.zeros(n_features)
