@@ -1,5 +1,8 @@
 import numpy as np
-from numba import njit
+from benchopt import safe_import_context
+
+with safe_import_context as import_ctx:
+    from numba import njit
 
 
 @njit
