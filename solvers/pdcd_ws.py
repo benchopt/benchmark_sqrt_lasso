@@ -17,6 +17,8 @@ class Solver(BaseSolver):
         'pip:git+https://github.com/scikit-learn-contrib/skglm.git@main'
     ]
 
+    stopping_strategy = "iteration"
+
     def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd
 
