@@ -17,7 +17,12 @@ class Solver(BaseSolver):
         'pip:git+https://github.com/scikit-learn-contrib/skglm.git@main'
     ]
 
-    stopping_strategy = "iteration"
+    reference = [
+        "Bertrand, Q. and Klopfenstein, Q. and Bannier, P.-A. and Gidel, G."
+        "and Massias, M."
+        "'Beyond L1: Faster and Better Sparse Models with skglm',"
+        "NeurIPS, 2022, https://arxiv.org/abs/2204.07826"
+    ]
 
     def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd
