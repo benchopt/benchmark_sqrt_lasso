@@ -4,7 +4,6 @@ from benchopt import safe_import_context
 with safe_import_context() as import_ctx:
     import numpy as np
     from numba import njit
-    # from benchmark_utils import prox_L1, prox_conjugate_L2
 
 
 class Solver(BaseSolver):
