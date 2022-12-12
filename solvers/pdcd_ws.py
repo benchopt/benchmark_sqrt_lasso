@@ -12,8 +12,16 @@ with safe_import_context() as import_ctx:
 class Solver(BaseSolver):
     name = "PDCD-WS"
 
+    install_cmd = 'conda'
     requirements = [
-        'pip:git+https://github.com/Badr-MOUFAD/skglm.git@pdcd-ws-skglm'
+        'pip:git+https://github.com/scikit-learn-contrib/skglm.git@main'
+    ]
+
+    reference = [
+        "Bertrand, Q. and Klopfenstein, Q. and Bannier, P.-A. and Gidel, G."
+        "and Massias, M."
+        "'Beyond L1: Faster and Better Sparse Models with skglm',"
+        "NeurIPS, 2022, https://arxiv.org/abs/2204.07826"
     ]
 
     def set_objective(self, X, y, lmbd):
@@ -22,7 +30,7 @@ class Solver(BaseSolver):
         self.penalty = L1(lmbd)
         self.datafit = SqrtQuadratic()
 
-        self.solver = PDCD_WS(dual_init=y/np.linalg.norm(y))
+        self.solver = PDCD_WS()
 
         # Cache Numba compilation
         self.run(5)

@@ -4,19 +4,19 @@ from benchopt import safe_import_context
 with safe_import_context() as import_ctx:
     import numpy as np
     from numba import njit
-    from benchmark_utils import prox_L1, prox_conjugate_L2
 
 
 class Solver(BaseSolver):
     name = "vu-condat-cd"
 
+    install_cmd = 'conda'
     requirements = ['numba']
 
     references = [
         'Olivier Fercoq and Pascal Bianchi, '
         '"A Coordinate-Descent Primal-Dual Algorithm with Large Step Size '
-        'and Possibly Nonseparable Functions", SIAM Journal on Optimization, 2020, '
-        'https://epubs.siam.org/doi/10.1137/18M1168480,'
+        'and Possibly Nonseparable Functions", SIAM Journal on Optimization, '
+        '2020, https://epubs.siam.org/doi/10.1137/18M1168480,'
         'code: https://github.com/Badr-MOUFAD/Fercoq-Bianchi-solver'
     ]
 
@@ -77,7 +77,8 @@ def vu_condat_cd(X, y, alpha=1., max_iter=1000, random_cd=False):
             # update primal
             old_w_j = w[j]
 
-            w[j] = prox_L1(old_w_j - primal_steps[j] * X[:, j] @ (2 * z_bar - z),
+            pseudo_grad = X[:, j] @ (2 * z_bar - z)
+            w[j] = prox_L1(old_w_j - primal_steps[j] * pseudo_grad,
                            primal_steps[j], alpha)
 
             # keep Xw synchro with X @ w
@@ -90,3 +91,23 @@ def vu_condat_cd(X, y, alpha=1., max_iter=1000, random_cd=False):
             z += (z_bar - z) / n_features
 
     return w
+
+
+@njit
+def prox_conjugate_L2(z, step, y):
+    # arg min_w ||y - w||^* + 1/(2*step) * ||w - z||^2
+
+    # project `u = z - step * y` on the L2 unit ball
+    u = z - step * y
+
+    norm_u = np.linalg.norm(u)
+    if norm_u <= 1.:
+        return u
+    return u / norm_u
+
+
+@njit
+def prox_L1(x, step, alpha):
+    # arg min_w ||w||_1 + 1/(2*step) ||w - z||^2
+    # entry-wise soft threshold
+    return np.sign(x) * np.maximum(0., np.abs(x) - step * alpha)
