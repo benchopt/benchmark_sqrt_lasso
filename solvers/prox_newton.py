@@ -10,7 +10,7 @@ class Solver(BaseSolver):
 
     stopping_strategy = "iteration"
 
-    install_cmd = "conda"
+    install_cmd = 'conda'
     requirements = [
         'pip:git+https://github.com/scikit-learn-contrib/skglm.git@main'
     ]
@@ -28,7 +28,7 @@ class Solver(BaseSolver):
         if hasattr(self.clf, "solver_"):
             self.clf.solver_.max_iter = n_iter
         self.clf.fit(self.X, self.y)
-        self.w = self.clf.coef_
+        self.w = self.clf.coef_.flatten()
 
     def get_result(self):
         return self.w
