@@ -7,10 +7,13 @@ with safe_import_context() as safe_import_ctx:
 
 class Solver(BaseSolver):
     name = "skglm-prox-newton"
-    install_cmd = "conda"
+
     stopping_strategy = "iteration"
 
-    requirements = ['pip:git+https://github.com/scikit-learn-contrib/skglm.git@main']
+    install_cmd = "conda"
+    requirements = [
+        'pip:git+https://github.com/scikit-learn-contrib/skglm.git@main'
+    ]
 
     def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbda = X, y, lmbd
