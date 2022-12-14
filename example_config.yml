@@ -4,7 +4,7 @@ n_repetitions: 3
 timeout: 100
 solver:
   - PDCD-WS
-  - vu-condat-cd
+  - fercoq-bianchi
   - Chambolle-Pock
 dataset:
   - MEG
