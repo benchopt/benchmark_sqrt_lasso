@@ -1,7 +1,7 @@
 from benchopt import BaseSolver, safe_import_context
 
 
-with safe_import_context() as safe_import_ctx:
+with safe_import_context() as import_ctx:
     from skglm.experimental import SqrtLasso
 
 
