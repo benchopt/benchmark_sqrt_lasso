@@ -7,7 +7,8 @@ with safe_import_context() as import_ctx:
 
 
 class Solver(BaseSolver):
-    name = "vu-condat-cd"
+    # coordinatewise version of Chambolle-Pock algorithm
+    name = "fercoq-bianchi"
 
     install_cmd = 'conda'
     requirements = ['numba']
@@ -34,8 +35,8 @@ class Solver(BaseSolver):
         if n_iter == 0:
             self.coef = np.zeros(self.X.shape[1])
         else:
-            coef = vu_condat_cd(self.X, self.y, self.lmbd,
-                                n_iter, self.random_cd)
+            coef = fercoq_bianchi(self.X, self.y, self.lmbd,
+                                  n_iter, self.random_cd)
 
             self.coef = coef.flatten()
 
@@ -44,7 +45,7 @@ class Solver(BaseSolver):
 
 
 @njit
-def vu_condat_cd(X, y, alpha=1., max_iter=1000, random_cd=False):
+def fercoq_bianchi(X, y, alpha=1., max_iter=1000, random_cd=False):
     n_samples, n_features = X.shape
     arranged_features = np.arange(n_features)
 
