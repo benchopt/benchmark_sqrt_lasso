@@ -96,7 +96,7 @@ def fercoq_bianchi(X, y, alpha=1., max_iter=1000, random_cd=False):
 
 @njit
 def prox_conjugate_L2(z, step, y):
-    # arg min_w ||y - w||^* + 1/(2*step) * ||w - z||^2
+    # arg min_w ||y - .||^*(w) + 1/(2*step) * ||w - z||^2
 
     # project `u = z - step * y` on the L2 unit ball
     u = z - step * y
