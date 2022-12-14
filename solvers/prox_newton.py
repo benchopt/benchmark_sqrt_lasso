@@ -10,7 +10,7 @@ class Solver(BaseSolver):
     install_cmd = "conda"
     stopping_strategy = "iteration"
 
-    requirements = ['pip:git+https://github.com/scikit-learn-contrib/skglm']
+    requirements = ['pip:git+https://github.com/scikit-learn-contrib/skglm.git@main']
 
     def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbda = X, y, lmbd
